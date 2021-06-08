@@ -16,7 +16,17 @@
         <div class="numberNode">
           <span class="el-icon-help"></span>
           <span>
-            <p>边缘节点数量</p>
+            <p>
+              边缘节点数量
+              <el-tooltip
+                class="item"
+                effect="light"
+                content="兼容历史版本"
+                placement="right-start"
+              >
+                <i class="el-icon-question" />
+              </el-tooltip>
+            </p>
             <h3>3</h3>
           </span>
         </div>
@@ -109,89 +119,85 @@
 </template>
 
 <script>
-export default {
-  name: "edgeNode",
-  components: {},
-  props: {},
-  data() {
-    return {
-      listQuery: {},
-      categoryOptions: [],
-      tableData: [
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+    export default {
+        name: "edgeNode",
+        components: {},
+        props: {},
+        data() {
+            return {
+                listQuery: {},
+                categoryOptions: [],
+                tableData: [{
+                    date: "2016-05-03",
+                    name: "王小虎",
+                    address: "上海市普陀区金沙江路 1518 弄"
+                }, {
+                    date: "2016-05-02",
+                    name: "王小虎",
+                    address: "上海市普陀区金沙江路 1518 弄"
+                }, {
+                    date: "2016-05-04",
+                    name: "王小虎",
+                    address: "上海市普陀区金沙江路 1518 弄"
+                }, {
+                    date: "2016-05-01",
+                    name: "王小虎",
+                    address: "上海市普陀区金沙江路 1518 弄"
+                }, {
+                    date: "2016-05-08",
+                    name: "王小虎",
+                    address: "上海市普陀区金沙江路 1518 弄"
+                }, {
+                    date: "2016-05-06",
+                    name: "王小虎",
+                    address: "上海市普陀区金沙江路 1518 弄"
+                }, {
+                    date: "2016-05-07",
+                    name: "王小虎",
+                    address: "上海市普陀区金沙江路 1518 弄"
+                }]
+            };
         },
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-08",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-06",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-07",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+        computed: {},
+        watch: {},
+        created() {},
+        mounted() {},
+        methods: {
+            handleSearchList() {
+                console.log("搜索全部内容");
+            }
         }
-      ]
     };
-  },
-  computed: {},
-  watch: {},
-  created() {},
-  mounted() {},
-  methods: {
-    handleSearchList() {
-      console.log("搜索全部内容");
-    }
-  }
-};
 </script>
 
 <style scoped lang="less">
-.main_contain span {
-  transform: rotate(45deg);
-  color: #ce4f15;
-  font-size: 20px;
-}
-
-.numberNode {
-  width: 176px;
-  display: flex;
-  justify-content: space-between;
-}
-.el-icon-help {
-  font-size: 74px;
-  color: #409eff;
-}
-.numberNode span:nth-child(2) p {
-  margin-top: 6px;
-}
-.textItem {
-  display: flex;
-  justify-content: space-between;
-}
-.searchColumn {
-  margin-top: 20px;
-}
+    .main_contain span {
+        transform: rotate(45deg);
+        color: #ce4f15;
+        font-size: 20px;
+    }
+    
+    .numberNode {
+        width: 176px;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .el-icon-help {
+        font-size: 74px;
+        color: #409eff;
+    }
+    
+    .numberNode span:nth-child(2) p {
+        margin-top: 6px;
+    }
+    
+    .textItem {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .searchColumn {
+        margin-top: 20px;
+    }
 </style>

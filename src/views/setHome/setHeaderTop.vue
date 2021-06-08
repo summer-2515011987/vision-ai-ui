@@ -6,15 +6,25 @@
         <span class="header-text">视频边缘智能平台</span>
         <el-dropdown style="float: right">
           <span class="el-dropdown-link">
-            <img style="vertical-align: middle" width="80" height="60" src="../../assets/images/home/user.jpg" alt />
+            <img
+              style="vertical-align: middle"
+              width="80"
+              height="60"
+              src="../../assets/images/home/user.jpg"
+              alt
+            />
             <!-- <b style="vertical-align: middle; padding-left: 5px">{{ name }}</b> -->
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown" @command="handleCommand">
-            <!-- <el-dropdown-item icon="el-icon-setting" command="setting"
+            <el-dropdown-item icon="el-icon-setting" command="setting"
               >个人设置</el-dropdown-item
-            > -->
-            <el-dropdown-item icon="el-icon-unlock" command="logout" @click.native="returnSetLogin">退出登录
+            >
+            <el-dropdown-item
+              icon="el-icon-unlock"
+              command="logout"
+              @click.native="returnSetLogin"
+              >退出登录
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>

@@ -7,6 +7,7 @@ import App from "./App.vue";
 import router from "./router";
 import axios from "axios";
 import store from "./store";
+import "@/style/css/common.css";
 
 Vue.config.productionTip = false;
 Vue.prototype.$http = axios;

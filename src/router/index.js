@@ -22,7 +22,23 @@ const routes = [{
                 name: "node",
                 component: () =>
                     import ("@/views/node/index"),
-                meta: { title: "边缘节点", icon: "ums-admin", isLeaf: true }
+                meta: { title: "边缘节点列表", icon: "ums-admin", isLeaf: true }
+            },
+            // 边缘节点详情
+            {
+                path: "/home/nodeDetail/:id",
+                name: "node",
+                component: () =>
+                    import ("@/views/node/nodeDetail"),
+                meta: { title: "边缘节点详情", icon: "ums-admin", isLeaf: true }
+            },
+            // edgeNodeConfig 边缘节点配置
+            {
+                path: "/home/edgeNodeConfig",
+                name: "node",
+                component: () =>
+                    import ("@/views/node/components/edgeNodeConfig"),
+                meta: { title: "边缘节点配置", icon: "ums-admin", isLeaf: true }
             },
             {
                 path: "/home/userApplications",

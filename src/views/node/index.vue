@@ -31,7 +31,9 @@
           </span>
         </div>
         <div class="elButton">
-          <el-button style="float:right" type="primary">新增</el-button>
+          <el-button style="float:right" type="primary" @click="editItem({})"
+            >新增</el-button
+          >
         </div>
       </div>
       <!-- 搜索栏目部分 -->
@@ -93,68 +95,104 @@
           </el-form-item>
         </el-form>
         <!-- 表格 -->
-        <el-table :data="tableData" height="250" border style="width: 100%">
-          <el-table-column prop="date" label="日期" width="180">
-          </el-table-column>
-          <el-table-column prop="name" label="姓名" width="180">
-          </el-table-column>
-          <el-table-column prop="address" label="地址"> </el-table-column>
-        </el-table>
-        <!-- 分页 -->
-        <el-pagination
-          class="footer-pagination"
-          background
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          layout="total, sizes,prev, pager, next,jumper"
-          :current-page.sync="listQuery.pageNum"
-          :page-size="10"
-          :page-sizes="[10, 15, 20]"
-          :total="1000"
+        <el-table
+          :data="tableData"
+          height="250"
+          border
+          style="width: 100%"
+          align="center"
         >
-        </el-pagination>
-      </div>
-    </el-card>
-  </div>
+          <el-table-column
+            prop="nodeName"
+            label="节点名称"
+            align="center"
+            width="150px"
+          >
+          </el-table-column>
+          <el-table-column
+            prop="nodeModel"
+            label="节点型号"
+            align="center"
+            width="150px"
+          >
+          </el-table-column>
+          <el-table-column
+            prop="cpuArchitecture"
+            label="cpu架构"
+            align="center"
+            width="150px"
+          >
+          </el-table-column>
+          <el-table-column
+            prop="deviceid"
+            label="deviceid"
+            align="center"
+            width="150px"
+          >
+          </el-table-column>
+          <el-table-column
+            prop="nodeStatus"
+            label="节点状态"
+            align="center"
+            width="150px"
+          >
+          </el-table-column>
+          <el-table-column
+            prop="enableStatus"
+            label="启用状态"
+            align="center"
+            width="150px"
+          >
+          </el-table-column>
+          <el-table-column label="操作" align="center">
+            <template slot-scope="scope">
+              <el-link @click="initialization(scope.row)" type="primary"
+                >初始化</el-link
+              >
+              <el-divider direction="vertical"></el-divider>
+              <el-link @click="toDetail(scope.row)" type="primary"
+                >详情</el-link
+              >
+              <el-divider direction="vertical"></el-divider>
+              <el-link type="danger" @click="deleteItem(scope.row)"
+                >删除</el-link
+              >
+            </template>
+</el-table-column>
+</el-table>
+<!-- 分页 -->
+<el-pagination class="footer-pagination" background @size-change="handleSizeChange" @current-change="handleCurrentChange" layout="total, sizes,prev, pager, next,jumper" :current-page.sync="listQuery.pageNum" :page-size="10" :page-sizes="[10, 15, 20]"
+    :total="1000">
+</el-pagination>
+<!-- 新增边缘节点 -->
+<addEdgeNode :visible="detailState" :detail="detail" @cancel="detailState = false"></addEdgeNode>
+</div>
+</el-card>
+</div>
 </template>
 
 <script>
+    import addEdgeNode from "./components/addEdgeNode";
     export default {
         name: "edgeNode",
-        components: {},
+        components: {
+            addEdgeNode
+        },
         props: {},
         data() {
             return {
+                detailState: false,
+                detail: {},
                 listQuery: {},
                 categoryOptions: [],
                 tableData: [{
-                    date: "2016-05-03",
-                    name: "王小虎",
-                    address: "上海市普陀区金沙江路 1518 弄"
-                }, {
-                    date: "2016-05-02",
-                    name: "王小虎",
-                    address: "上海市普陀区金沙江路 1518 弄"
-                }, {
-                    date: "2016-05-04",
-                    name: "王小虎",
-                    address: "上海市普陀区金沙江路 1518 弄"
-                }, {
-                    date: "2016-05-01",
-                    name: "王小虎",
-                    address: "上海市普陀区金沙江路 1518 弄"
-                }, {
-                    date: "2016-05-08",
-                    name: "王小虎",
-                    address: "上海市普陀区金沙江路 1518 弄"
-                }, {
-                    date: "2016-05-06",
-                    name: "王小虎",
-                    address: "上海市普陀区金沙江路 1518 弄"
-                }, {
-                    date: "2016-05-07",
-                    name: "王小虎",
-                    address: "上海市普陀区金沙江路 1518 弄"
+                    id: 1,
+                    nodeName: "node1",
+                    nodeModel: "Linux",
+                    cpuArchitecture: "arm",
+                    deviceid: "11111",
+                    nodeStatus: "离线",
+                    enableStatus: "启用"
                 }]
             };
         },
@@ -165,6 +203,27 @@
         methods: {
             handleSearchList() {
                 console.log("搜索全部内容");
+            },
+            handleSizeChange() {
+                console.log("handleSizeChange");
+            },
+            handleCurrentChange() {
+                console.log("handleCurrentChange");
+            },
+            // 初始化
+            initialization() {
+                console.log("初始化");
+            },
+            // 新增
+            editItem(data) {
+                console.log("新增");
+                this.detail = JSON.parse(JSON.stringify(data));
+                this.detailState = true;
+            },
+            // 根据路由跳转详情
+            toDetail(data) {
+                console.log("当情id", data.id);
+                this.$router.push(`/home/nodeDetail/${data.id}`);
             }
         }
     };
@@ -178,7 +237,7 @@
     }
     
     .numberNode {
-        width: 176px;
+        width: 196px;
         display: flex;
         justify-content: space-between;
     }

@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <el-tabs
@@ -14,51 +13,48 @@
         v-for="item in tabOption"
         :key="item.name"
       >
-        <slot v-if="item.name" :name="item.name">
-        </slot>
+        <slot v-if="item.name" :name="item.name"> </slot>
       </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 
 <script>
-export default {
-  props: {
-    tabOption: [Array, Object],
-    currentView: [String],
-    type: [String],
-    stretch: [Boolean]
-  },
-  data () {
-    return {
-      activeName: this.currentView
-    }
-  },
-  watch: {
-    currentView (val) {
-      this.activeName = val
-    }
-  },
+    export default {
+        props: {
+            tabOption: [Array, Object],
+            currentView: [String],
+            type: [String],
+            stretch: [Boolean]
+        },
+        data() {
+            return {
+                activeName: this.currentView
+            };
+        },
+        watch: {
+            currentView(val) {
+                this.activeName = val;
+            }
+        },
 
-  methods: {
-    handleClick (tab, event) {
-      this.activeName = tab.name
-      this.$emit('click', tab)
-    }
-  },
-  created () {
-    if (!this.currentView) {
-      this.activeName = this.tabOption[0].name
-    }
-  }
-}
+        methods: {
+            handleClick(tab, event) {
+                this.activeName = tab.name;
+                this.$emit("click", tab);
+            }
+        },
+        created() {
+            if (!this.currentView) {
+                this.activeName = this.tabOption[0].name;
+            }
+        }
+    };
 </script>
 
 <style lang="less" scoped>
-
-
-.tab-detail-console {
-  // padding-top: 20px;
-  padding-left: 10px;
-}
+    .tab-detail-console {
+        padding-top: 20px;
+        padding-left: 10px;
+    }
 </style>

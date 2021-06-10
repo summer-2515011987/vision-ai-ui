@@ -5,12 +5,24 @@
 }
 
 * {
-    margin: 0;
-    padding: 0;
+    /* margin: 0;
+    padding: 0; */
     font-size: 14px;
     font-weight: 400;
 }
 
 li {
     list-style: none;
+}
+
+.el-dialog__header {
+    background: #3c72ca;
+}
+
+.el-dialog__title {
+    color: #fff;
+}
+
+.el-dialog__headerbtn .el-dialog__close {
+    color: #fff;
 }

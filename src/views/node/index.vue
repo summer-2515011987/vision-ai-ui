@@ -31,7 +31,7 @@
           </span>
         </div>
         <div class="elButton">
-          <el-button style="float:right" type="primary" @click="editItem({})"
+          <el-button style="float:right" type="primary" @click="editItem"
             >新增</el-button
           >
         </div>
@@ -44,10 +44,10 @@
           class="demo-form-inline"
           style="text-align:left;"
         >
-          <el-form-item label="资源分类：">
+          <el-form-item label="">
             <el-select
               v-model="listQuery.categoryId"
-              placeholder="全部"
+              placeholder="节点状态（全部）"
               clearable
               class="input-width"
             >
@@ -60,10 +60,10 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="资源分类：">
+          <el-form-item label="">
             <el-select
               v-model="listQuery.categoryId"
-              placeholder="全部"
+              placeholder="节点名称"
               clearable
               class="input-width"
             >
@@ -158,105 +158,118 @@
                 >删除</el-link
               >
             </template>
-</el-table-column>
-</el-table>
-<!-- 分页 -->
-<el-pagination class="footer-pagination" background @size-change="handleSizeChange" @current-change="handleCurrentChange" layout="total, sizes,prev, pager, next,jumper" :current-page.sync="listQuery.pageNum" :page-size="10" :page-sizes="[10, 15, 20]"
-    :total="1000">
-</el-pagination>
-<!-- 新增边缘节点 -->
-<addEdgeNode :visible="detailState" :detail="detail" @cancel="detailState = false"></addEdgeNode>
-</div>
-</el-card>
-</div>
+          </el-table-column>
+        </el-table>
+        <!-- 分页 -->
+        <el-pagination
+          class="footer-pagination"
+          background
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          layout="total, sizes,prev, pager, next,jumper"
+          :current-page.sync="listQuery.pageNum"
+          :page-size="10"
+          :page-sizes="[10, 15, 20]"
+          :total="1000"
+        >
+        </el-pagination>
+        <!-- 新增边缘节点 -->
+        <addEdgeNode
+          :visible="detailState"
+          :detail="detail"
+          @cancel="detailState = false"
+        ></addEdgeNode>
+      </div>
+    </el-card>
+  </div>
 </template>
 
 <script>
-    import addEdgeNode from "./components/addEdgeNode";
-    export default {
-        name: "edgeNode",
-        components: {
-            addEdgeNode
-        },
-        props: {},
-        data() {
-            return {
-                detailState: false,
-                detail: {},
-                listQuery: {},
-                categoryOptions: [],
-                tableData: [{
-                    id: 1,
-                    nodeName: "node1",
-                    nodeModel: "Linux",
-                    cpuArchitecture: "arm",
-                    deviceid: "11111",
-                    nodeStatus: "离线",
-                    enableStatus: "启用"
-                }]
-            };
-        },
-        computed: {},
-        watch: {},
-        created() {},
-        mounted() {},
-        methods: {
-            handleSearchList() {
-                console.log("搜索全部内容");
-            },
-            handleSizeChange() {
-                console.log("handleSizeChange");
-            },
-            handleCurrentChange() {
-                console.log("handleCurrentChange");
-            },
-            // 初始化
-            initialization() {
-                console.log("初始化");
-            },
-            // 新增
-            editItem(data) {
-                console.log("新增");
-                this.detail = JSON.parse(JSON.stringify(data));
-                this.detailState = true;
-            },
-            // 根据路由跳转详情
-            toDetail(data) {
-                console.log("当情id", data.id);
-                this.$router.push(`/home/nodeDetail/${data.id}`);
-            }
+import addEdgeNode from "./components/addEdgeNode";
+export default {
+  name: "edgeNode",
+  components: {
+    addEdgeNode
+  },
+  props: {},
+  data() {
+    return {
+      detailState: false,
+      detail: {},
+      listQuery: {},
+      categoryOptions: [],
+      tableData: [
+        {
+          id: 1,
+          nodeName: "node1",
+          nodeModel: "Linux",
+          cpuArchitecture: "arm",
+          deviceid: "11111",
+          nodeStatus: "离线",
+          enableStatus: "启用"
         }
+      ]
     };
+  },
+  computed: {},
+  watch: {},
+  created() {},
+  mounted() {},
+  methods: {
+    handleSearchList() {
+      console.log("搜索全部内容");
+    },
+    handleSizeChange() {
+      console.log("handleSizeChange");
+    },
+    handleCurrentChange() {
+      console.log("handleCurrentChange");
+    },
+    // 初始化
+    initialization() {
+      console.log("初始化");
+    },
+    // 新增
+    editItem() {
+      this.detailState = true;
+    },
+    // 根据路由跳转详情
+    toDetail(data) {
+      console.log("当情id", data.id);
+      this.$router.push(`/home/nodeDetail/${data.id}`);
+    }
+  }
+};
 </script>
 
 <style scoped lang="less">
-    .main_contain span {
-        transform: rotate(45deg);
-        color: #ce4f15;
-        font-size: 20px;
-    }
-    
-    .numberNode {
-        width: 196px;
-        display: flex;
-        justify-content: space-between;
-    }
-    
-    .el-icon-help {
-        font-size: 74px;
-        color: #409eff;
-    }
-    
-    .numberNode span:nth-child(2) p {
-        margin-top: 6px;
-    }
-    
-    .textItem {
-        display: flex;
-        justify-content: space-between;
-    }
-    
-    .searchColumn {
-        margin-top: 20px;
-    }
+.main_contain span {
+  transform: rotate(45deg);
+  color: #ce4f15;
+  font-size: 20px;
+}
+
+.numberNode {
+  width: 196px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.el-icon-help {
+  font-size: 74px;
+  color: #409eff;
+}
+
+.numberNode span:nth-child(2) p {
+  margin-top: 6px;
+}
+
+.textItem {
+  display: flex;
+  justify-content: space-between;
+}
+
+.searchColumn {
+  margin-top: 20px;
+}
 </style>

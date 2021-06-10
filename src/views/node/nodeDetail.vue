@@ -45,7 +45,7 @@
 <script>
 import DetailTab from "@/components/DetailTab";
 import edgeNodeDetails from "./components/edgeNodeDetails";
-import edgeNodeConfig from "./components/edgeNodeConfig";
+// import edgeNodeConfig from "./components/edgeNodeConfig";
 import edgeNodeStatus from "./components/edgeNodeStatus"; //1
 import edgeNodelist from "./components/edgeNodelist";
 import taskList from "./components/taskList";
@@ -54,7 +54,7 @@ export default {
   components: {
     DetailTab,
     edgeNodeDetails,
-    edgeNodeConfig,
+    // edgeNodeConfig,
     edgeNodeStatus,
     edgeNodelist,
     taskList
@@ -62,13 +62,6 @@ export default {
   props: {},
   data() {
     return {
-      shopingCarts: [
-        {
-          goodsName: "",
-          price: "",
-          quantity: ""
-        }
-      ],
       // tab1
       currentView: "edgeNodeDetails",
       tabOption: [
@@ -104,16 +97,7 @@ export default {
       ]
     };
   },
-  computed: {
-    totalPrice: function() {
-      let total = 0;
-      this.shopingCarts.forEach(function(item, index) {
-        let subtotal = item.price * item.quantity;
-        total += subtotal;
-      });
-      return total;
-    }
-  },
+  computed: {},
   // watch: {
   //     firstName(newName, oldName) {
   //         this.fullName = newName + ' ' + this.lastName;
@@ -123,17 +107,6 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    add: function() {
-      this.shopingCarts.push({
-        goodsName: "",
-        price: "",
-        quantity: ""
-      });
-    },
-    remove: function(index) {
-      this.shopingCarts.splice(index, 1);
-    },
-
     swtichTab(tab) {
       this.currentView = tab.name;
       if (tab.name == "edgeNodeConfig") {

@@ -1,13 +1,13 @@
 <template>
   <el-dialog
-    title="添加边缘节点"
+    title="日志储存策略"
     :visible="visible"
-    width="40%"
+    width="28%"
     @close="$emit('cancel')"
   >
     <el-form
-      label-position="left"
-      label-width="96px"
+      label-position="right"
+      label-width="120px"
       :model="apForm"
       ref="ruleForm"
       :rules="rules"
@@ -15,47 +15,29 @@
       v-loading="listLoading"
     >
       <el-form-item
-        label="节点名称"
-        prop="nodeName"
-        :rules="[
-          { required: true, message: '请填写节点名称', trigger: 'change' }
-        ]"
-      >
-        <el-input class="nodeName" v-model="apForm.nodeName" show-word-limit>
-        </el-input>
-      </el-form-item>
-
-      <el-form-item label="节点描述" prop="nodeDec">
-        <el-input
-          type="textarea"
-          class="title"
-          v-model="apForm.nodeDec"
-          show-word-limit
-        >
-        </el-input>
-      </el-form-item>
-      <el-form-item
-        label="操作系统:"
-        prop="sysStatus"
+        label="日志保存时间:"
+        prop="date"
         :rules="[
           { required: true, message: '请选择操作系统', trigger: 'change' }
         ]"
       >
-        <el-select v-model="apForm.sysStatus" placeholder="请选择操作系统">
-          <el-option label="Linux" value="1"></el-option>
-          <el-option label="arm" value="0"></el-option>
+        <el-select v-model="apForm.date" placeholder="请选择操作系统">
+          <el-option label="1日" value="0"></el-option>
+          <el-option label="7日" value="1"></el-option>
+          <el-option label="30日" value="2"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item
-        label="CPU架构:"
+        label="日志级别:"
         prop="cpuArchitecture"
         :rules="[
-          { required: true, message: '请选择CPU架构', trigger: 'change' }
+          { required: true, message: '请选择日志级别', trigger: 'change' }
         ]"
       >
-        <el-select v-model="apForm.cpuArchitecture" placeholder="请选择CPU架构">
-          <el-option label="Linux" value="1"></el-option>
-          <el-option label="arm" value="0"></el-option>
+        <el-select v-model="apForm.logLevel" placeholder="请选择日志级别">
+          <el-option label="错误" value="2"></el-option>
+          <el-option label="警告" value="0"></el-option>
+          <el-option label="信息" value="1"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item style="margin: 0;text-align: center">
@@ -72,7 +54,7 @@
 // import { getRegionId } from "@/utils/auth";
 // import { addFire, editFire } from "@/api/fusionCloud/firewall";
 export default {
-  name: "testEdit",
+  name: "storageStrategy",
   props: {
     visible: {
       type: Boolean,
@@ -83,13 +65,9 @@ export default {
   data() {
     return {
       listLoading: false,
-      title: "",
-      moduleSystemId: "",
       btnLoading: false,
       sysOptions: [],
       apForm: {},
-      ct_user_id: "", //用户id
-      os_id: "", //资源池id
       rules: {
         name: [
           {

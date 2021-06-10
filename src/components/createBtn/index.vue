@@ -21,12 +21,9 @@
         </div>
         <div class="right" v-else-if="buttonText == ''"></div>
         <div class="right" v-else>
-          <el-button
-            type="primary"
-            v-permission="btnPermission"
-            @click="createEvent"
-            >{{ buttonText }}</el-button
-          >
+          <el-button type="primary" @click="createEvent">{{
+            buttonText
+          }}</el-button>
           <el-button
             v-if="buttonTexts"
             type="primary"
@@ -39,56 +36,27 @@
   </div>
 </template>
 <script>
-import { setRegionId } from "@/utils/auth";
-import Hub from "@/utils/VueEvent";
 export default {
   props: {
-    // isAble:[Boolean],
     name: [String],
     stack: "",
-    btnPermission: [Array],
     buttonText: [String, Array],
     buttonTexts: [String],
     type: [String],
     titleText: [String],
     tip: [String]
-    // regionData: [Array, Object],
-    // currentIds: [String]
   },
   data() {
     return {
-      cloud: this.$store.state.user.cloud,
       activeName: "first",
-      // currentId: this.currentIds, // 天翼云资源池
       pibcurrentId: "",
       ctyunId: "",
-      areas: this.$store.state.user.regionList,
       ctyunRegion: {},
       publicRegion: {}
     };
   },
-  mounted() {
-    Hub.$on("getUuid", info => {
-      if (window.sessionStorage.getItem("activeName") === "私有云") {
-        this.ctyunId = info;
-        this.$store.commit("SET_UUID", this.ctyunId);
-        setRegionId(this.ctyunId);
-      } else if (window.sessionStorage.getItem("activeName") === "公有云") {
-        this.pibcurrentId = info;
-        this.$store.commit("SET_UUID", this.pibcurrentId);
-        setRegionId(this.pibcurrentId);
-      }
-    });
-    // Hub.$on("nowRegion", info => {});
-  },
-  created() {
-    this.determineIsCtyun();
-  },
+
   methods: {
-    handleClick(tab, event) {
-      // console.log(tab, event)
-    },
-    addEbs() {},
     createEvent(fun) {
       this.$emit("create", fun);
     },
@@ -97,26 +65,6 @@ export default {
     },
     createStrategy() {
       this.$emit("strategy");
-    },
-    determineIsCtyun() {
-      let region = this.$store.state.user.regionList;
-      let regionA = [];
-      let regionB = [];
-      region.forEach(element => {
-        if (element.type === 2) {
-          regionA.push(element);
-        } else {
-          regionB.push(element);
-        }
-      });
-      this.ctyunRegion = regionA[0];
-      this.publicRegion = regionB[0];
-    }
-  },
-  watch: {
-    $route(to, from) {
-      this.cloud = this.$store.state.user.cloud;
-      // data数据操作
     }
   }
 };

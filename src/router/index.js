@@ -37,7 +37,7 @@ const routes = [{
                 path: "/home/edgeNodeConfig",
                 name: "node",
                 component: () =>
-                    import ("@/views/node/components/edgeNodeConfig"),
+                    import ("@/views/node/edgeNodeConfig"),
                 meta: { title: "边缘节点配置", icon: "ums-admin", isLeaf: true }
             },
             {

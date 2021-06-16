@@ -109,7 +109,7 @@ export default {
   methods: {
     swtichTab(tab) {
       this.currentView = tab.name;
-      if (tab.name == "edgeNodeConfig") {
+      if (this.currentView == "edgeNodeConfig") {
         this.$router.push("/home/edgeNodeConfig");
       }
     },

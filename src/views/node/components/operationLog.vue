@@ -94,12 +94,14 @@
             </el-select>
           </el-form-item>
           <el-form-item label="">
-            <el-input
-              v-model="listQuery.nameKeyword"
-              class="input-width"
-              placeholder="请输入搜索内容"
-              clearable
-            ></el-input>
+            <el-date-picker
+              v-model="value1"
+              type="daterange"
+              range-separator="至"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+            >
+            </el-date-picker>
           </el-form-item>
           <el-form-item>
             <el-button
@@ -162,8 +164,18 @@ export default {
       listQuery: {
         status: true
       },
+      value1: "",
       formLog: {},
-      categoryOptions: []
+      categoryOptions: [],
+      tableData: [
+        {
+          nodeName: "20210616",
+          nodeModel: "模块2",
+          cpuArchitecture: "1",
+          deviceid: "deviceid",
+          nodeStatus: "kkk"
+        }
+      ]
     };
   },
   computed: {},
@@ -171,11 +183,27 @@ export default {
   created() {},
   mounted() {},
   methods: {
+    getList() {},
+    handleSearchList() {
+      this.listQuery.pageNum = 1;
+      this.getList();
+    },
     handleStatusChange() {
       console.log("是否启用");
     },
     logStorage() {
       this.detailState = true;
+    },
+    handleSizeChange(val) {
+      console.log("handleSizeChange");
+      this.listQuery.pageNum = 1;
+      this.listQuery.pageSize = val;
+      this.getList();
+    },
+    handleCurrentChange(val) {
+      console.log("handleCurrentChange");
+      this.listQuery.pageNum = val;
+      this.getList();
     }
   }
 };

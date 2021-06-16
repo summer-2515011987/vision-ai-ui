@@ -216,14 +216,22 @@ export default {
   created() {},
   mounted() {},
   methods: {
+    getList() {
+      console.log("获取列表数据");
+    },
     handleSearchList() {
       console.log("搜索全部内容");
     },
-    handleSizeChange() {
+    handleSizeChange(val) {
       console.log("handleSizeChange");
+      this.listQuery.pageNum = 1;
+      this.listQuery.pageSize = val;
+      this.getList();
     },
-    handleCurrentChange() {
+    handleCurrentChange(val) {
       console.log("handleCurrentChange");
+      this.listQuery.pageNum = val;
+      this.getList();
     },
     // 初始化
     initialization() {

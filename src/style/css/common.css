@@ -26,3 +26,8 @@ li {
 .el-dialog__headerbtn .el-dialog__close {
     color: #fff;
 }
+
+body {
+    padding-right: 0px;
+    overflow: hidden;
+}

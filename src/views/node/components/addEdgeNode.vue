@@ -107,6 +107,8 @@ export default {
     submit() {
       this.$refs.ruleForm.validate(vaild => {
         if (!vaild) return false;
+
+        this.$emit("cancel"); //关闭弹窗
       });
     }
   }

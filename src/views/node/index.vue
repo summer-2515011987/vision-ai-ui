@@ -3,14 +3,15 @@
     <el-card class="edge-container">
       <div slot="header" class="main_contain">
         <span class="el-icon-caret-right"></span>边缘节点列表
-        <el-button
+        <!-- <el-button
           type="primary"
           size="medium"
           style="float: right; "
           icon="el-icon-refresh-right"
           >刷新</el-button
-        >
+        > -->
       </div>
+
       <!-- 边缘节点数量部分 -->
       <div class="textItem">
         <div class="numberNode">
@@ -36,6 +37,7 @@
           >
         </div>
       </div>
+
       <!-- 搜索栏目部分 -->
       <div class="searchColumn">
         <el-form

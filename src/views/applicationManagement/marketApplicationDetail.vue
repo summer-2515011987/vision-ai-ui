@@ -78,23 +78,75 @@
           </div>
         </div>
       </div>
+      <!-- 第二部分 -->
+      <!-- <el-card class="box-card"> -->
+      <detail-tab
+        :tabOption="tabOption"
+        :currentView="currentView"
+        @click="swtichTab"
+        style="background:#fff;margin:20px;"
+      >
+        <div :slot="currentView">
+          <template v-for="item in tabOption">
+            <component
+              v-if="currentView == item.name"
+              :is="item.name"
+              :key="item.name"
+              :ref="item.name"
+            ></component>
+          </template>
+        </div>
+      </detail-tab>
+      <!-- </el-card> -->
     </el-card>
   </div>
 </template>
 
 <script>
+import DetailTab from "@/components/DetailTab";
+import applicationDetails from "./components/applicationDetails";
+import instructions from "./components/instructions";
+import updateLog from "./components/updateLog";
 export default {
   name: "marketApplicationDetail",
-  components: {},
+  components: {
+    DetailTab,
+    applicationDetails,
+    instructions,
+    updateLog
+  },
   props: {},
   data() {
-    return {};
+    return {
+      currentView: "applicationDetails",
+      tabOption: [
+        {
+          label: "应用详情", //tab组件中的名字
+          name: "applicationDetails", // tab组件的对应项
+          view: ""
+        },
+        {
+          label: "使用说明",
+          name: "instructions",
+          view: ""
+        },
+        {
+          label: "更新日志",
+          name: "updateLog",
+          view: ""
+        }
+      ]
+    };
   },
   computed: {},
   watch: {},
   created() {},
   mounted() {},
-  methods: {}
+  methods: {
+    swtichTab(tab) {
+      this.currentView = tab.name;
+    }
+  }
 };
 </script>
 

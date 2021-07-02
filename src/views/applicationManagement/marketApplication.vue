@@ -31,7 +31,7 @@
       </el-form>
       <el-row :gutter="20">
         <el-col :span="8" v-for="item in 6" :key="item.id" class="marketCard">
-          <el-card>
+          <el-card @click.native="marketDetail" class="marketDetail">
             <div class="equipmentOne">
               <img src="../../assets/logo.png" alt="" />
               <div>
@@ -111,18 +111,17 @@ export default {
       console.log("handleCurrentChange");
       this.listQuery.pageNum = val;
       this.getList();
-    }
+    },
     // 分页结束---
+    // 跳转至详情页
+    marketDetail() {
+      this.$router.push("/home/marketApplicationDetail");
+    }
   }
 };
 </script>
 
 <style scoped lang="less">
-.main_contain span {
-  transform: rotate(45deg);
-  color: #ce4f15;
-  font-size: 20px;
-}
 .equipmentOne {
   display: flex;
 
@@ -148,11 +147,8 @@ export default {
 }
 .explanation {
   display: -webkit-box;
-
   -webkit-box-orient: vertical;
-
   -webkit-line-clamp: 3;
-
   overflow: hidden;
 }
 .equipmentTwo {
@@ -194,5 +190,8 @@ export default {
     float: right;
     vertical-align: middle;
   }
+}
+.marketDetail {
+  cursor: pointer;
 }
 </style>

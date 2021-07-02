@@ -47,6 +47,7 @@ const routes = [{
                     import ("@/views/applicationManagement/userApplications"),
                 meta: { title: "用户应用" }
             },
+            // 页面为能力商店页面
             {
                 path: "/home/marketApplication",
                 name: "marketApplication",
@@ -54,6 +55,15 @@ const routes = [{
                     import ("@/views/applicationManagement/marketApplication"),
                 meta: { title: "市场应用" }
             },
+            // 能力商店详情
+            {
+                path: "/home/marketApplicationDetail",
+                name: "marketApplicationDetail",
+                component: () =>
+                    import ("@/views/applicationManagement/marketApplicationDetail"),
+                meta: { title: "能力商店详情" }
+            },
+
             {
                 path: "/home/applicationTem",
                 name: "containerTem",

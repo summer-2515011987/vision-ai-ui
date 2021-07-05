@@ -90,7 +90,7 @@
             <el-button
               type="primary"
               icon="el-icon-search"
-              @click="handleSearchList()"
+              @click="handleSearchList(listQuery.nameKeyword)"
               class="searchBtn"
               >搜索</el-button
             >
@@ -221,8 +221,8 @@ export default {
     getList() {
       console.log("获取列表数据");
     },
-    handleSearchList() {
-      console.log("搜索全部内容");
+    handleSearchList(data) {
+      console.log("搜索全部内容", data);
     },
     handleSizeChange(val) {
       console.log("handleSizeChange");

@@ -2,7 +2,7 @@
   <div class="marketApplication">
     <el-card class="marketContainer">
       <div slot="header" class="main_contain">
-        <span class="el-icon-caret-right"></span>能力商店111
+        <span class="el-icon-caret-right"></span>能力商店
       </div>
       <!-- 表单项 -->
       <el-form
@@ -115,7 +115,7 @@ export default {
     // 分页结束---
     // 跳转至详情页
     marketDetail() {
-      this.$router.push("/home/marketApplicationDetail");
+      this.$router.push("/home/capabilityStoreDetail");
     }
   }
 };

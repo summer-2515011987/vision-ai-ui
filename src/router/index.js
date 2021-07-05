@@ -45,23 +45,15 @@ const routes = [{
                 name: "userApplications",
                 component: () =>
                     import ("@/views/applicationManagement/userApplications"),
-                meta: { title: "用户应用" }
+                meta: { title: "应用管理" }
             },
-            // 页面为能力商店页面
+
             {
                 path: "/home/marketApplication",
                 name: "marketApplication",
                 component: () =>
                     import ("@/views/applicationManagement/marketApplication"),
-                meta: { title: "市场应用" }
-            },
-            // 能力商店详情
-            {
-                path: "/home/marketApplicationDetail",
-                name: "marketApplicationDetail",
-                component: () =>
-                    import ("@/views/applicationManagement/marketApplicationDetail"),
-                meta: { title: "能力商店详情" }
+                meta: { title: "应用模板" }
             },
 
             {
@@ -69,21 +61,14 @@ const routes = [{
                 name: "containerTem",
                 component: () =>
                     import ("@/views/applicationDeploy/applicationTem"),
-                meta: { title: "应用模板" }
+                meta: { title: "任务管理" }
             },
             {
                 path: "/home/containerApplication",
                 name: "containerDeploy",
                 component: () =>
                     import ("@/views/applicationDeploy/containerApplication"),
-                meta: { title: "容器应用" }
-            },
-            {
-                path: "/home/newsReport",
-                name: "newsReport",
-                component: () =>
-                    import ("@/views/cloudNews/newsReport"),
-                meta: { title: "消息上报" }
+                meta: { title: "任务告警" }
             },
             {
                 path: "/home/messageDistribution",
@@ -92,13 +77,36 @@ const routes = [{
                     import ("@/views/cloudNews/messageDistribution"),
                 meta: { title: "消息下发" }
             },
-            ///////
+            {
+                path: "/home/newsReport",
+                name: "newsReport",
+                component: () =>
+                    import ("@/views/cloudNews/newsReport"),
+                meta: { title: "消息上报" }
+            },
+
             {
                 path: "/home/dataAnalysis",
                 name: "dataAnalysis",
                 component: () =>
                     import ("@/views/dataAnalysis"),
-                meta: { title: "数据分析" }
+                meta: { title: "企业镜像" }
+            },
+            // 能力商店
+            {
+                path: "/home/capabilityStore",
+                name: "capabilityStore",
+                component: () =>
+                    import ("@/views/capabilityStore"),
+                meta: { title: "能力商店" }
+            },
+            // 能力商店详情
+            {
+                path: "/home/capabilityStoreDetail",
+                name: "capabilityStoreDetail",
+                component: () =>
+                    import ("@/views/capabilityStore/capabilityStoreDetail"),
+                meta: { title: "能力商店详情" }
             }
         ]
     },

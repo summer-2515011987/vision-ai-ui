@@ -18,9 +18,7 @@
           </template>
         </div>
       </detail-tab>
-    </el-card>
-    <!-- tab2 -->
-    <el-card class="NodeStatus">
+      <!--  -->
       <detail-tab
         :tabOption="tabOption1"
         :currentView="currentView1"
@@ -39,6 +37,8 @@
         </div>
       </detail-tab>
     </el-card>
+    <!-- tab2 -->
+    <!-- <el-card class="NodeStatus"> </el-card> -->
   </div>
 </template>
 
@@ -123,5 +123,9 @@ export default {
 <style scoped lang="less">
 .NodeStatus {
   margin-top: 20px;
+}
+.box-card {
+  height: 580px;
+  overflow: auto;
 }
 </style>

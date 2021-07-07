@@ -221,6 +221,9 @@ export default {
     getList() {
       console.log("获取列表数据");
     },
+    deleteItem(data) {
+      console.log("删除", data);
+    },
     handleSearchList(data) {
       console.log("搜索全部内容", data);
     },

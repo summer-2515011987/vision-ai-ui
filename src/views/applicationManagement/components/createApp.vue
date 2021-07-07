@@ -219,22 +219,208 @@
             @click="environment"
             class="el-icon-arrow-down"
             :class="[
-              isShowConfig ? 'el-icon-arrow-down' : 'el-icon-arrow-right'
+              isShowenviron ? 'el-icon-arrow-down' : 'el-icon-arrow-right'
             ]"
           ></div>
           容器运行环境中设定的一个变量。可以在应用部署后修改，为应用提供极大的灵活性。设置容器运行环境中的系统环境变量。
           <div v-if="isShowenviron" class="environment">
             <el-form-item label="手动输入">
               <!-- 环境变量配置表 -->
-              <el-table :data="environmentData" stripe style="width: 100%">
-                <el-table-column prop="date" label="变量名称" width="180">
+              <el-table :data="environmentData" class="kong-box">
+                <el-table-column prop="aaa" label="变量名称">
+                  <template slot-scope="scope">
+                    <span v-if="scope.row.vVisible">{{
+                      scope.row.variableName
+                    }}</span>
+                    <el-input
+                      v-else
+                      ref="marker1"
+                      v-model="scope.row.variableName"
+                      class="inputheight"
+                    ></el-input>
+                  </template>
                 </el-table-column>
-                <el-table-column prop="name" label="变量值" width="180">
+                <el-table-column prop="aaa" label="变量值">
+                  <template slot-scope="scope">
+                    <span v-if="scope.row.vVisible">{{
+                      scope.row.variableValue
+                    }}</span>
+                    <el-input
+                      v-else
+                      ref="marker1"
+                      v-model="scope.row.variableValue"
+                      class="inputheight"
+                    ></el-input>
+                  </template>
                 </el-table-column>
-                <el-table-column prop="address" label="操作"> </el-table-column>
+                <el-table-column label="操作" align="center" width="200px">
+                  <template slot-scope="scope">
+                    <el-link type="danger" @click="deleteit(scope.row)"
+                      >删除</el-link
+                    >
+                  </template>
+                </el-table-column>
               </el-table>
+
+              <div class="addziduan">
+                <el-button type="text" @click="addziduan">添加变量</el-button>
+              </div>
             </el-form-item>
           </div>
+        </el-form-item>
+        <!-- 卷配置-->
+        <el-form-item label="卷配置" class="startCommand">
+          <div
+            @click="volumIcon"
+            class="el-icon-arrow-down"
+            :class="[
+              isShowvolum ? 'el-icon-arrow-down' : 'el-icon-arrow-right'
+            ]"
+          ></div>
+          支持挂在本地卷到容器中，以实现数据文件的持久化存储
+          <div v-if="isShowvolum" class="volumConfig">
+            <el-form-item label="本地卷">
+              <!-- 环境变量配置表 -->
+              <el-table :data="localVolumeData" class="kong-box">
+                <el-table-column prop="aaa" label="本地卷名称">
+                  <template slot-scope="scope">
+                    <span v-if="scope.row.vVisible">{{
+                      scope.row.localVolumeName
+                    }}</span>
+                    <el-input
+                      v-else
+                      ref="marker1"
+                      v-model="scope.row.localVolumeName"
+                      class="inputheight"
+                    ></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="aaa" label="数组机目录">
+                  <template slot-scope="scope">
+                    <span v-if="scope.row.vVisible">{{
+                      scope.row.arrayDirectory
+                    }}</span>
+                    <el-input
+                      v-else
+                      ref="marker1"
+                      v-model="scope.row.arrayDirectory"
+                      class="inputheight"
+                    ></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="aaa" label="挂载目录">
+                  <template slot-scope="scope">
+                    <span v-if="scope.row.vVisible">{{
+                      scope.row.mountDirectory
+                    }}</span>
+                    <el-input
+                      v-else
+                      ref="marker1"
+                      v-model="scope.row.mountDirectory"
+                      class="inputheight"
+                    ></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="aaa" label="权限">
+                  <template slot-scope="scope">
+                    <!-- <span v-if="scope.row.vVisible">{{
+                      scope.row.readWrite
+                    }}</span> -->
+                    <el-select v-model="scope.row.readWrite" placeholder="读写">
+                      <el-option label="区域一" value="shanghai"></el-option>
+                      <el-option label="区域二" value="beijing"></el-option>
+                    </el-select>
+                  </template>
+                </el-table-column>
+                <el-table-column label="操作" align="center" width="200px">
+                  <template slot-scope="scope">
+                    <el-link type="danger" @click="deleteVolume(scope.row)"
+                      >删除</el-link
+                    >
+                  </template>
+                </el-table-column>
+              </el-table>
+
+              <div class="addziduan">
+                <el-button type="text" @click="addVolume">添加变量</el-button>
+              </div>
+            </el-form-item>
+          </div>
+        </el-form-item>
+        <!-- host配置 -->
+        <el-form-item label="host配置" class="startCommand">
+          <div
+            @click="hostConfig"
+            class="el-icon-arrow-down"
+            :class="[isShowhost ? 'el-icon-arrow-down' : 'el-icon-arrow-right']"
+          ></div>
+          支持配置容器默认host
+          <div v-if="isShowhost" class="environment">
+            <el-form-item label="容器host">
+              <!-- 环境变量配置表 -->
+              <el-table :data="hostData" class="kong-box">
+                <el-table-column prop="aaa" label="IP地址">
+                  <template slot-scope="scope">
+                    <span v-if="scope.row.vVisible">{{
+                      scope.row.ipAddress
+                    }}</span>
+                    <el-input
+                      v-else
+                      ref="marker1"
+                      v-model="scope.row.ipAddress"
+                      class="inputheight"
+                    ></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="aaa" label="域名">
+                  <template slot-scope="scope">
+                    <span v-if="scope.row.vVisible">{{
+                      scope.row.domainName
+                    }}</span>
+                    <el-input
+                      v-else
+                      ref="marker1"
+                      v-model="scope.row.domainName"
+                      class="inputheight"
+                    ></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column label="操作" align="center" width="200px">
+                  <template slot-scope="scope">
+                    <el-link type="danger" @click="deleteHost(scope.row)"
+                      >删除</el-link
+                    >
+                  </template>
+                </el-table-column>
+              </el-table>
+
+              <div class="addziduan">
+                <el-button type="text" @click="addHost">添加变量</el-button>
+              </div>
+            </el-form-item>
+          </div>
+        </el-form-item>
+        <!-- 健康检查 -->
+        <el-form-item label="健康检查" class="startCommand">
+          <div
+            @click="healthExamin"
+            class="el-icon-arrow-down"
+            :class="[
+              isShowhealth ? 'el-icon-arrow-down' : 'el-icon-arrow-right'
+            ]"
+          ></div>
+
+          <div v-if="isShowhealth" class="environment">
+            <el-form-item label="应用存活探针">
+              <el-radio-group v-model="networkradio2" size="small">
+                <el-radio-button label="不检查"></el-radio-button>
+                <el-radio-button label="执行命令检查"></el-radio-button>
+              </el-radio-group>
+            </el-form-item>
+          </div>
+        </el-form-item>
+        <el-form-item style="text-align:center">
+          <el-button type="primary" class="el-icon-plus">创建</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -265,12 +451,43 @@ export default {
   props: {},
   data() {
     return {
+      networkradio2: "不检查",
       activeName: "first",
       isShow: true,
       isShowConfig: true,
       isShowenviron: true,
+      isShowvolum: true,
+      isShowhost: true,
+      isShowhealth: true,
+      // host配置数据
+      hostData: [
+        {
+          ipAddress: "127.3.29.8080",
+          domainName: "333",
+          isNull: false,
+          vVisible: true
+        }
+      ],
+      //卷配置数据
+      localVolumeData: [
+        {
+          localVolumeName: "111",
+          arrayDirectory: "22",
+          mountDirectory: "33",
+          readWrite: "",
+          isNull: false,
+          vVisible: true
+        }
+      ],
       // 环境变量配置表
-      environmentData: [],
+      environmentData: [
+        {
+          variableName: "zs",
+          variableValue: "12",
+          isNull: false,
+          vVisible: true
+        }
+      ],
       tableData: [
         {
           id: "12987122",
@@ -326,6 +543,64 @@ export default {
   created() {},
   mounted() {},
   methods: {
+    // 健康检查开始---
+    healthExamin() {
+      this.isShowhealth = !this.isShowhealth;
+    },
+    // 健康检查结束---
+
+    // host配置开始---
+    hostConfig() {
+      this.isShowhost = !this.isShowhost;
+    },
+    addHost() {
+      this.hostData.push({
+        index: this.hostData.length,
+        ipAddress: "",
+        domainName: "",
+        isNull: false,
+        vVisible: false
+      });
+    },
+    deleteHost(row) {
+      this.hostData.splice(row.index, 1);
+    },
+    // host配置结束---
+
+    // 卷配置开始---
+    volumIcon() {
+      this.isShowvolum = !this.isShowvolum;
+    },
+    addVolume() {
+      this.localVolumeData.push({
+        index: this.localVolumeData.length,
+        localVolumeName: "",
+        arrayDirectory: "",
+        mountDirectory: "",
+        readWrite: "",
+        isNull: false,
+        vVisible: false
+      });
+    },
+    deleteVolume(row) {
+      this.localVolumeData.splice(row.index, 1);
+    },
+    // 卷配置结束---
+
+    // 添加变量
+    addziduan() {
+      // 向表格数组中数据添加一行
+      this.environmentData.push({
+        index: this.environmentData.length,
+        variableName: "",
+        variableValue: "",
+        isNull: false,
+        vVisible: false
+      });
+    },
+    deleteit(row) {
+      this.environmentData.splice(row.index, 1);
+    },
     handleClick(tab) {
       console.log(tab.label);
     },
@@ -385,8 +660,13 @@ export default {
 .firstTab {
   margin-left: -52px;
 }
-.environment {
-  height: 300px;
-  background: pink;
+
+.addziduan {
+  text-align: center;
+}
+.kong-box {
+  margin: 10px;
+  width: 90%;
+  margin-left: 50px;
 }
 </style>

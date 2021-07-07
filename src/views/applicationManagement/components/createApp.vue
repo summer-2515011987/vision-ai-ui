@@ -58,8 +58,6 @@
                   v-model="item.deploymentNode"
                   placeholder="请选择部署节点"
                 >
-                  <!-- <el-option label="区域一" value="shanghai"></el-option>
-                  <el-option label="区域二" value="beijing"></el-option> -->
                   <el-option
                     v-for="item in detailsoptions"
                     :key="item.value"
@@ -160,10 +158,82 @@
             <el-form-item label="命令配置">
               <el-input v-model="list.comConfig"></el-input>
             </el-form-item>
-            <el-form-item label="参数配置">
+            <el-form-item label="参数配置" style="margin-top:10px">
               <el-input v-model="list.paramConfig" type="textarea"></el-input>
             </el-form-item>
-            <el-form-item label="示例"> </el-form-item>
+            <el-form-item label="示例">
+              <el-tabs v-model="activeName" @tab-click="handleClick">
+                <el-tab-pane label="二进制方式" name="first" class="firstTab"
+                  ><el-form-item label="命令配置">
+                    <el-input v-model="list.commandConfig"></el-input>
+                  </el-form-item>
+                  <el-form-item label="参数配置" style="margin-top:10px">
+                    <el-input v-model="list.parameterconfig"></el-input>
+                  </el-form-item>
+                </el-tab-pane>
+                <el-tab-pane label="bash方式" name="second" class="firstTab">
+                  <el-form-item label="命令配置">
+                    <el-input v-model="list.commandConfig"></el-input>
+                  </el-form-item>
+                  <el-form-item label="参数配置" style="margin-top:10px">
+                    <el-input v-model="list.parameterconfig"></el-input>
+                  </el-form-item>
+                </el-tab-pane>
+              </el-tabs>
+            </el-form-item>
+          </div>
+        </el-form-item>
+        <!-- 选项配置 -->
+        <el-form-item label="选项配置" class="startCommand">
+          <div
+            @click="optionConfig"
+            class="el-icon-arrow-down"
+            :class="[
+              isShowConfig ? 'el-icon-arrow-down' : 'el-icon-arrow-right'
+            ]"
+          ></div>
+          支持设置权限配置，重启策略，容器网络配置，端口映射
+          <div v-if="isShowConfig" class="privilege">
+            <el-form-item label="特权配置">
+              <el-checkbox-group v-model="containerForm.type">
+                <el-checkbox
+                  label="允许容器访问主机设备，例如容器访问GPU,FPGA"
+                  name="type"
+                ></el-checkbox>
+              </el-checkbox-group>
+            </el-form-item>
+            <el-form-item label="重启策略" style="margin-bottom:10px">
+              <el-button type="primary" size="small">总是重启</el-button>
+            </el-form-item>
+            <el-form-item label="容器网络">
+              <el-radio-group v-model="networkradio1" size="small">
+                <el-radio-button label="主机网络"></el-radio-button>
+                <el-radio-button label="端口映射"></el-radio-button>
+              </el-radio-group>
+            </el-form-item>
+          </div>
+        </el-form-item>
+        <!-- 环境变量配置 -->
+        <el-form-item label="环境变量配置" class="startCommand">
+          <div
+            @click="environment"
+            class="el-icon-arrow-down"
+            :class="[
+              isShowConfig ? 'el-icon-arrow-down' : 'el-icon-arrow-right'
+            ]"
+          ></div>
+          容器运行环境中设定的一个变量。可以在应用部署后修改，为应用提供极大的灵活性。设置容器运行环境中的系统环境变量。
+          <div v-if="isShowenviron" class="environment">
+            <el-form-item label="手动输入">
+              <!-- 环境变量配置表 -->
+              <el-table :data="environmentData" stripe style="width: 100%">
+                <el-table-column prop="date" label="变量名称" width="180">
+                </el-table-column>
+                <el-table-column prop="name" label="变量值" width="180">
+                </el-table-column>
+                <el-table-column prop="address" label="操作"> </el-table-column>
+              </el-table>
+            </el-form-item>
           </div>
         </el-form-item>
       </el-form>
@@ -182,18 +252,25 @@
 </template>
 
 <script>
+// import DetailTab from "@/components/DetailTab";
 import selectMirror from "../dialog/selectMirror";
 import tempconfig from "../dialog/tempconfig";
 export default {
   name: "createApp",
   components: {
+    // DetailTab,
     selectMirror,
     tempconfig
   },
   props: {},
   data() {
     return {
+      activeName: "first",
       isShow: true,
+      isShowConfig: true,
+      isShowenviron: true,
+      // 环境变量配置表
+      environmentData: [],
       tableData: [
         {
           id: "12987122",
@@ -211,6 +288,7 @@ export default {
       detailState: false,
       configVisible: false,
       radio1: "自定义配置",
+      networkradio1: "主机网络",
       deplopList: [{ deploymentNode: "", containerName: "" }],
       detailsoptions: [
         {
@@ -228,7 +306,10 @@ export default {
       ],
 
       listLoading: false,
-      list: {},
+      list: {
+        commandConfig: "/run/start",
+        parameterconfig: "--port=8080"
+      },
       rules: {
         name: [
           {
@@ -245,6 +326,9 @@ export default {
   created() {},
   mounted() {},
   methods: {
+    handleClick(tab) {
+      console.log(tab.label);
+    },
     // 创建正式代码开始
     Adddevlop() {
       this.deplopList.push({
@@ -265,6 +349,12 @@ export default {
     },
     explicit() {
       this.isShow = !this.isShow;
+    },
+    optionConfig() {
+      this.isShowConfig = !this.isShowConfig;
+    },
+    environment() {
+      this.isShowenviron = !this.isShowenviron;
     }
   }
 };
@@ -284,9 +374,19 @@ export default {
   margin-left: 10px;
 }
 .implicit {
-  height: 300px;
+  height: 270px;
+}
+.privilege {
+  height: 150px;
 }
 .startCommand {
   background: #f4f5f6;
+}
+.firstTab {
+  margin-left: -52px;
+}
+.environment {
+  height: 300px;
+  background: pink;
 }
 </style>

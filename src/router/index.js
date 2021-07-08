@@ -55,6 +55,14 @@ const routes = [{
                     import ("@/views/applicationManagement/components/createApp"),
                 meta: { title: "创建容器应用" }
             },
+            // 编辑应用管理
+            {
+                path: "/home/editConfig",
+                name: "editConfig",
+                component: () =>
+                    import ("@/views/applicationManagement/components/editConfig"),
+                meta: { title: "编辑容器应用" }
+            },
             {
                 path: "/home/marketApplication",
                 name: "marketApplication",

@@ -31,31 +31,37 @@
       </el-form>
       <el-row :gutter="20">
         <el-col :span="8" v-for="item in 6" :key="item.id" class="marketCard">
-          <el-card @click.native="marketDetail" class="marketDetail">
-            <div class="equipmentOne">
-              <img src="../../assets/logo.png" alt="" />
-              <div>
-                <h2>BACnet设备连接器-AMD64</h2>
-                <p><span>版本 5.2.3</span> <span>CPU架构&nbsp; AMD64</span></p>
+          <el-card class="marketDetail">
+            <div @click="marketDetail">
+              <div class="equipmentOne">
+                <img src="../../assets/logo.png" alt="" />
+                <div>
+                  <h2>BACnet设备连接器-AMD64</h2>
+                  <p>
+                    <span>版本 5.2.3</span> <span>CPU架构&nbsp; AMD64</span>
+                  </p>
+                </div>
               </div>
+              <div class="equipmentTwo">
+                <span>类型<strong>物联网</strong></span>
+                <span>行业<strong>工业制造</strong></span>
+              </div>
+              <p class="explanation">
+                该应用为楼宇润发太过分了减肥发ijrggdf绝地反击
+                该应用为楼宇润发太过分了减肥发ijrggdf绝地反击
+                该应用为楼宇润发太过分了减肥发ijrggdf该应用为
+                楼宇润发太过分了减肥发ijrggdf绝地反击
+                该应用为楼宇润发太过分了减肥发ijrggdf绝地反击
+                该应用为楼宇润发太过分了减肥发ijrggdf
+              </p>
+
+              <div class="equipmentFour">
+                <span><i class="el-icon-view"></i>111</span>
+                <span><i class="el-icon-star-off"></i>222</span>
+              </div>
+              <el-divider></el-divider>
             </div>
-            <div class="equipmentTwo">
-              <span>类型<strong>物联网</strong></span>
-              <span>行业<strong>工业制造</strong></span>
-            </div>
-            <p class="explanation">
-              该应用为楼宇润发太过分了减肥发ijrggdf绝地反击
-              该应用为楼宇润发太过分了减肥发ijrggdf绝地反击
-              该应用为楼宇润发太过分了减肥发ijrggdf该应用为
-              楼宇润发太过分了减肥发ijrggdf绝地反击
-              该应用为楼宇润发太过分了减肥发ijrggdf绝地反击
-              该应用为楼宇润发太过分了减肥发ijrggdf
-            </p>
-            <div class="equipmentFour">
-              <span><i class="el-icon-view"></i>111</span>
-              <span><i class="el-icon-star-off"></i>222</span>
-            </div>
-            <el-divider></el-divider>
+
             <div class="equipmentFive">
               <img src="../../assets/images/home/user.jpg" alt="" />
               <span>中国移动研究院</span><i class="el-icon-star-off"></i>

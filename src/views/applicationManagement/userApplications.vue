@@ -67,7 +67,7 @@
               >详情</el-link
             >
             <el-divider direction="vertical"></el-divider>
-            <el-link @click="toDetail(scope.row)" type="primary"
+            <el-link @click="changeConfig(scope.row)" type="primary"
               >更改配置</el-link
             >
             <el-divider direction="vertical"></el-divider>
@@ -130,6 +130,10 @@ export default {
   created() {},
   mounted() {},
   methods: {
+    // 更改配置
+    changeConfig() {
+      this.$router.push("/home/editConfig");
+    },
     // 创建容器应用
     addContainer() {
       console.log("创建容器应用");

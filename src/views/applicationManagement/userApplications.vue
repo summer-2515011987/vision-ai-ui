@@ -130,7 +130,10 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    // 更改配置
+    // 应用管理详情
+    initialization() {
+      this.$router.push("/home/detailsManage");
+    }, // 更改配置
     changeConfig() {
       this.$router.push("/home/editConfig");
     },

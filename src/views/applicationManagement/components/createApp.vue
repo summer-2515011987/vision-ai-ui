@@ -100,21 +100,24 @@
           ></el-col>
         </el-row>
         <el-divider></el-divider>
-        <el-form-item label="配置方式：">
-          <el-radio-group v-model="radio1" size="small">
-            <el-radio-button label="自定义配置"></el-radio-button>
-            <el-radio-button
-              label="模板配置"
-              @click.native="tempconfig"
-            ></el-radio-button>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="">
-          <el-button type="primary" size="small" @click="selectMirror"
-            >选择镜像</el-button
-          >
-        </el-form-item>
-        <el-divider></el-divider>
+        <div v-if="fromDevlop">
+          <el-form-item label="配置方式：">
+            <el-radio-group v-model="radio1" size="small">
+              <el-radio-button label="自定义配置"></el-radio-button>
+              <el-radio-button
+                label="模板配置"
+                @click.native="tempconfig"
+              ></el-radio-button>
+            </el-radio-group>
+          </el-form-item>
+          <el-form-item label="">
+            <el-button type="primary" size="small" @click="selectMirror"
+              >选择镜像</el-button
+            >
+          </el-form-item>
+
+          <el-divider></el-divider>
+        </div>
         <el-form-item label="关联模板" class="baseNews"></el-form-item>
         <el-form-item label="容器镜像"></el-form-item>
         <el-form-item label="容器规格">
@@ -451,6 +454,7 @@ export default {
   props: {},
   data() {
     return {
+      fromDevlop: true,
       networkradio2: "不检查",
       activeName: "first",
       isShow: true,
@@ -541,7 +545,11 @@ export default {
   computed: {},
   watch: {},
   created() {},
-  mounted() {},
+  mounted() {
+    if (this.$route.query.fromDevlop == "") {
+      this.fromDevlop = "";
+    }
+  },
   methods: {
     // 健康检查开始---
     healthExamin() {

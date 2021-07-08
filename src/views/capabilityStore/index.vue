@@ -65,7 +65,9 @@
             <div class="equipmentFive">
               <img src="../../assets/images/home/user.jpg" alt="" />
               <span>中国移动研究院</span><i class="el-icon-star-off"></i>
-              <el-button type="primary" size="medium">部署应用</el-button>
+              <el-button type="primary" size="medium" @click="deployApplication"
+                >部署应用</el-button
+              >
             </div>
           </el-card>
         </el-col>
@@ -102,6 +104,13 @@ export default {
   created() {},
   mounted() {},
   methods: {
+    // 部署应用
+    deployApplication() {
+      this.$router.push({
+        path: "/home/createApp",
+        query: { fromDevlop: "" }
+      });
+    },
     // 查询搜索
     handleSearchList(data) {
       console.log("data", data);

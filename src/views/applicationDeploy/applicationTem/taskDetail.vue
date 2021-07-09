@@ -56,14 +56,39 @@
           <span>{{ detailsForm.dec }}</span>
         </el-form-item>
       </el-form>
+      <!-- 下半部分 -->
+      <detail-tab
+        :tabOption="tabOption"
+        :currentView="currentView"
+        @click="swtichTab"
+        style="background:#fff;margin:20px;"
+      >
+        <div :slot="currentView">
+          <template v-for="item in tabOption">
+            <component
+              v-if="currentView == item.name"
+              :is="item.name"
+              :key="item.name"
+              :ref="item.name"
+            ></component>
+          </template>
+        </div>
+      </detail-tab>
     </el-card>
   </div>
 </template>
 
 <script>
+import DetailTab from "@/components/DetailTab";
+import toConfigure from "./tab/toConfigure";
+import operationRecord from "./tab/operationRecord";
 export default {
   name: "taskDetail",
-  components: {},
+  components: {
+    DetailTab,
+    toConfigure,
+    operationRecord
+  },
   props: {},
   data() {
     return {
@@ -74,7 +99,20 @@ export default {
         updateTime: "2021-01-19 14:40:34",
         instancesNum: "0/1",
         dec: "-"
-      }
+      },
+      currentView: "toConfigure",
+      tabOption: [
+        {
+          label: "配置", //tab组件中的名字
+          name: "toConfigure", // tab组件的对应项
+          view: ""
+        },
+        {
+          label: "运行记录",
+          name: "operationRecord",
+          view: ""
+        }
+      ]
     };
   },
   computed: {},
@@ -84,7 +122,11 @@ export default {
     console.log("详情666", this.detailsForm);
   },
   mounted() {},
-  methods: {}
+  methods: {
+    swtichTab(tab) {
+      this.currentView = tab.name;
+    }
+  }
 };
 </script>
 

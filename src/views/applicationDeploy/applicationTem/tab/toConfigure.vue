@@ -1,10 +1,10 @@
 <template>
-  <div class="applicationTemp">应用模板111</div>
+  <div class="toConfigure">配置</div>
 </template>
 
 <script>
 export default {
-  name: "applicationTemp",
+  name: "toConfigure",
   components: {},
   props: {},
   data() {

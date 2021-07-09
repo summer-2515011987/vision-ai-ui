@@ -86,6 +86,24 @@ const routes = [{
                     import ("@/views/applicationDeploy/applicationTem"),
                 meta: { title: "任务管理" }
             },
+            // 任务管理创建/编辑
+            {
+                path: "/home/editTask",
+                name: "editTask",
+                component: () =>
+                    import (
+                        "@/views/applicationDeploy/applicationTem/components/editTask"
+                    ),
+                meta: { title: "任务管理创建" }
+            },
+            // 任务管理详情
+            {
+                path: "/home/taskDetail",
+                name: "taskDetail",
+                component: () =>
+                    import ("@/views/applicationDeploy/applicationTem/taskDetail"),
+                meta: { title: "任务管理详情" }
+            },
             {
                 path: "/home/containerApplication",
                 name: "containerDeploy",
@@ -107,7 +125,6 @@ const routes = [{
                     import ("@/views/cloudNews/newsReport"),
                 meta: { title: "消息上报" }
             },
-
             {
                 path: "/home/dataAnalysis",
                 name: "dataAnalysis",

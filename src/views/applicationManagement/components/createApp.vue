@@ -2,7 +2,10 @@
   <div class="createApp">
     <el-card class="createAppCard">
       <div slot="header" class="clearfix">
-        <el-page-header @back="$router.back()" content="创建"></el-page-header>
+        <el-page-header
+          @back="$router.back()"
+          content="创建容器应用"
+        ></el-page-header>
       </div>
       <el-form
         label-position="right"

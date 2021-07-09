@@ -1,10 +1,10 @@
 <template>
-  <div class="applicationTemp">应用模板111</div>
+  <div class="operationRecord">运行记录</div>
 </template>
 
 <script>
 export default {
-  name: "applicationTemp",
+  name: "operationRecord",
   components: {},
   props: {},
   data() {

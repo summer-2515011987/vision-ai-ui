@@ -1,10 +1,10 @@
 <template>
   <div class="taskDetail">
-    <el-card>
+    <el-card class="taskDetailContainer">
       <div slot="header" class="clearfix">
         <el-page-header
           @back="$router.back()"
-          content="任务管理详情"
+          content="任务管理详情aaa"
         ></el-page-header>
       </div>
       <el-form
@@ -135,5 +135,9 @@ export default {
   width: 120px;
   font-weight: bold;
   font-size: 16px;
+}
+.taskDetailContainer {
+  height: 580px;
+  overflow: auto;
 }
 </style>

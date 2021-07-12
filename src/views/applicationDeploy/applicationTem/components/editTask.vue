@@ -81,6 +81,9 @@
           <el-input v-model="taskList.Frame"></el-input>
         </el-form-item>
       </el-form>
+      <div style="text-align:center;margin-top:20px">
+        <el-button type="primary" icon="el-icon-plus">{{ btnTitle }}</el-button>
+      </div>
     </el-card>
   </div>
 </template>
@@ -93,6 +96,7 @@ export default {
   data() {
     return {
       title: "",
+      btnTitle: "",
       listLoading: false,
       taskList: {},
       labelValue: "",
@@ -120,13 +124,17 @@ export default {
   computed: {},
   watch: {},
   created() {
-    this.taskList = this.$route.query;
+    // this.taskList = this.$route.query;
   },
   mounted() {
+    this.title = `${this.$route.query.id ? "编辑" : "创建"}任务`;
     if (this.$route.query.id) {
-      this.title = "编辑任务";
+      this.btnTitle = "更新";
+      // 编辑
+      this.taskList = this.$route.query;
     } else {
-      this.title = "创建任务";
+      // 创建
+      this.btnTitle = "创建";
     }
   },
   methods: {

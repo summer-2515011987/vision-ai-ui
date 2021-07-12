@@ -8,9 +8,11 @@ import router from "./router";
 import axios from "axios";
 import store from "./store";
 import "@/style/css/common.css";
+import { timeService } from "@/utils/timeformat";
 
 Vue.config.productionTip = false;
 Vue.prototype.$http = axios;
+Vue.prototype.$timeService = timeService;
 // 注册到VUE实例
 Vue.use(ElementUI);
 

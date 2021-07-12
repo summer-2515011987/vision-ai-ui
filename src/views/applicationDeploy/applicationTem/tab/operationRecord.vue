@@ -14,7 +14,11 @@
         </template>
       </el-table-column>
       <el-table-column prop="RunNode" label="运行节点"> </el-table-column>
-      <el-table-column prop="createTime" label="开始时间"> </el-table-column>
+      <el-table-column prop="createTime" label="开始时间">
+        <!-- <template slot-scope="scope">{{
+          $timeService(scope.row.createTime)
+        }}</template> -->
+      </el-table-column>
       <el-table-column prop="endTime" label="结束时间"> </el-table-column>
     </el-table>
   </div>

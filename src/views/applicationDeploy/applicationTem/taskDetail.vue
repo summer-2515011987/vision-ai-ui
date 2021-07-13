@@ -4,7 +4,7 @@
       <div slot="header" class="clearfix">
         <el-page-header
           @back="$router.back()"
-          content="任务管理详情aaa"
+          content="任务管理详情"
         ></el-page-header>
       </div>
       <el-form
@@ -119,7 +119,6 @@ export default {
   watch: {},
   created() {
     this.detailsForm = this.$route.query;
-    console.log("详情666", this.detailsForm);
   },
   mounted() {},
   methods: {

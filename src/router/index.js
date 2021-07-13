@@ -111,6 +111,16 @@ const routes = [{
                     import ("@/views/applicationDeploy/containerApplication"),
                 meta: { title: "任务告警" }
             },
+            // 任务告警---》查看
+            {
+                path: "/home/alarmManageView",
+                name: "alarmManageView",
+                component: () =>
+                    import (
+                        "@/views/applicationDeploy/containerApplication/alarmManageView"
+                    ),
+                meta: { title: "任务告警查看" }
+            },
             {
                 path: "/home/messageDistribution",
                 name: "messageDistribution",

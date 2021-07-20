@@ -1,16 +1,24 @@
 import request from "@/utils/request";
-let BASEPATH = "/smartedge";
-//登录
-var loginPath = "/login";
-
-function login(data) {
+let BASEPATH = "/VideoPlatform";
+// 登陆接口
+export function login(data) {
     return request({
-        url: BASEPATH + loginPath,
+        url: BASEPATH + "/login",
         method: "post",
         data: data
     });
 }
-let service = {
-    login
-};
-export default service;
+
+export function getInfo() {
+    return request({
+        url: BASEPATH + "/info",
+        method: "get"
+    });
+}
+
+export function logout() {
+    return request({
+        url: BASEPATH + "/logout",
+        method: "post"
+    });
+}

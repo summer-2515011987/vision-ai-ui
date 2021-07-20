@@ -2,108 +2,147 @@
   <div class="marketApplication">
     <el-card class="marketContainer">
       <div slot="header" class="main_contain">
-        <span class="el-icon-caret-right"></span>能力商店
+        <span class="el-icon-caret-right"></span>能力商店221
       </div>
       <!-- 表单项 -->
-      <el-form
-        :inline="true"
-        :model="listQuery"
-        class="demo-form-inline"
-        style="text-align:left;"
-      >
-        <el-form-item label="">
-          <el-input
-            v-model="listQuery.keyword"
-            class="input-width"
-            placeholder="请输入应用商店"
-            clearable
-          ></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button
-            type="primary"
-            @click="handleSearchList(listQuery.keyword)"
-            class="searchBtn"
-            icon="el-icon-search"
-            >搜索</el-button
+      <div v-loading="listLoading">
+        <el-form
+          :inline="true"
+          :model="listQuery"
+          class="demo-form-inline"
+          style="text-align:left;"
+        >
+          <el-form-item label="">
+            <el-input
+              v-model="listQuery.name"
+              class="input-width"
+              placeholder="请输入应用商店"
+              clearable
+            ></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button
+              type="primary"
+              @click="handleSearchList"
+              class="searchBtn"
+              icon="el-icon-search"
+              >搜索</el-button
+            >
+          </el-form-item>
+        </el-form>
+        <el-row :gutter="20">
+          <el-col
+            :span="8"
+            v-for="(item, index) in storeData"
+            :key="index"
+            class="marketCard"
           >
-        </el-form-item>
-      </el-form>
-      <el-row :gutter="20">
-        <el-col :span="8" v-for="item in 6" :key="item.id" class="marketCard">
-          <el-card class="marketDetail">
-            <div @click="marketDetail">
-              <div class="equipmentOne">
-                <img src="../../assets/logo.png" alt="" />
-                <div>
-                  <h2>BACnet设备连接器-AMD64</h2>
-                  <p>
-                    <span>版本 5.2.3</span> <span>CPU架构&nbsp; AMD64</span>
-                  </p>
+            <el-card class="marketDetail">
+              <div @click="marketDetail(item)">
+                <div class="equipmentOne">
+                  <!-- <img src="../../assets/logo.png" alt="" /> -->
+                  <div>
+                    <h2>{{ item.name }}</h2>
+                    <p>
+                      <span style="margin-right:4px"
+                        >版本 <span>{{ item.version }}</span></span
+                      >
+                      <span class="cpuStore">CPU架构&nbsp; {{ item.cpu }}</span>
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div class="equipmentTwo">
-                <span>类型<strong>物联网</strong></span>
-                <span>行业<strong>工业制造</strong></span>
-              </div>
-              <p class="explanation">
-                该应用为楼宇润发太过分了减肥发ijrggdf绝地反击
-                该应用为楼宇润发太过分了减肥发ijrggdf绝地反击
-                该应用为楼宇润发太过分了减肥发ijrggdf该应用为
-                楼宇润发太过分了减肥发ijrggdf绝地反击
-                该应用为楼宇润发太过分了减肥发ijrggdf绝地反击
-                该应用为楼宇润发太过分了减肥发ijrggdf
-              </p>
+                <div class="equipmentTwo">
+                  <span
+                    >类型<strong>{{ item.imageType }}</strong></span
+                  >
+                  <span
+                    >行业<strong>{{ item.trade }}</strong></span
+                  >
+                </div>
+                <p class="explanation">
+                  {{ item.brief }}
+                </p>
 
-              <div class="equipmentFour">
+                <!-- <div class="equipmentFour">
                 <span><i class="el-icon-view"></i>111</span>
                 <span><i class="el-icon-star-off"></i>222</span>
+              </div> -->
+                <el-divider></el-divider>
               </div>
-              <el-divider></el-divider>
-            </div>
 
-            <div class="equipmentFive">
-              <img src="../../assets/images/home/user.jpg" alt="" />
-              <span>中国移动研究院</span><i class="el-icon-star-off"></i>
-              <el-button type="primary" size="medium" @click="deployApplication"
-                >部署应用</el-button
-              >
-            </div>
-          </el-card>
-        </el-col>
-      </el-row>
-      <!-- 分页 -->
-      <el-pagination
-        class="footer-pagination"
-        background
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        layout="total, sizes,prev, pager, next,jumper"
-        :current-page.sync="listQuery.pageNum"
-        :page-size="10"
-        :page-sizes="[10, 15, 20]"
-        :total="1000"
-      >
-      </el-pagination>
+              <div class="equipmentFive">
+                <!-- <img src="../../assets/images/home/user.jpg" alt="" /> -->
+                <!-- <span>中国移动研究院</span> -->
+                <!-- <i class="el-icon-star-off"></i> -->
+                <el-button
+                  type="primary"
+                  size="medium"
+                  @click="deployApplication"
+                  >部署应用</el-button
+                >
+              </div>
+            </el-card>
+          </el-col>
+        </el-row>
+        <!-- 分页 -->
+        <el-pagination
+          class="footer-pagination"
+          background
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          layout="total, sizes,prev, pager, next,jumper"
+          :current-page.sync="listQuery.pageIndex"
+          :page-size="listQuery.pageSize"
+          :page-sizes="[10, 15, 20]"
+          :total="total"
+        >
+        </el-pagination>
+      </div>
     </el-card>
   </div>
 </template>
 
 <script>
+import { searchStore } from "@/api/capabilityStore.js";
+const defaultListQuery = {
+  pageIndex: 1,
+  pageSize: 6,
+  name: "",
+  type: "1"
+};
 export default {
   name: "marketApplication",
   components: {},
   props: {},
   data() {
     return {
-      listQuery: {}
+      listQuery: Object.assign({}, defaultListQuery),
+      storeData: [],
+      listLoading: false,
+      total: null
     };
   },
   computed: {},
   watch: {},
-  created() {},
+  created() {
+    this.getList();
+  },
   mounted() {},
   methods: {
+    getList() {
+      this.listLoading = true;
+      searchStore(this.listQuery)
+        .then(res => {
+          this.listLoading = false;
+          if (res.code == 200) {
+            this.storeData = res.data.content;
+            this.total = res.data.totalElements;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     // 部署应用
     deployApplication() {
       this.$router.push({
@@ -112,25 +151,29 @@ export default {
       });
     },
     // 查询搜索
+    // 查询搜索
     handleSearchList(data) {
-      console.log("data", data);
+      this.listQuery.pageIndex = 1;
+      this.getList();
     },
     //分页开始----
     handleSizeChange(val) {
-      console.log("handleSizeChange");
-      // this.listQuery.pageNum = 1;
-      // this.listQuery.pageSize = val;
-      // this.getList();
+      this.listQuery.pageIndex = 1;
+      this.listQuery.pageSize = val;
+      this.getList();
     },
     handleCurrentChange(val) {
-      console.log("handleCurrentChange");
-      this.listQuery.pageNum = val;
+      this.listQuery.pageIndex = val;
       this.getList();
     },
     // 分页结束---
     // 跳转至详情页
-    marketDetail() {
-      this.$router.push("/home/capabilityStoreDetail");
+    marketDetail(data) {
+      sessionStorage.setItem("currentData", JSON.stringify(data));
+      this.$router.push({
+        path: "/home/capabilityStoreDetail",
+        query: data
+      });
     }
   }
 };
@@ -191,6 +234,7 @@ export default {
 }
 
 .equipmentFive {
+  text-align: right;
   img {
     width: 38px;
     vertical-align: middle;
@@ -201,12 +245,12 @@ export default {
     font-size: 24px;
     vertical-align: middle;
   }
-  .el-button {
-    float: right;
-    vertical-align: middle;
-  }
 }
 .marketDetail {
   cursor: pointer;
+}
+.cpuStore {
+  display: inline-block;
+  float: right;
 }
 </style>

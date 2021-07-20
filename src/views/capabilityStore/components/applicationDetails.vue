@@ -1,5 +1,5 @@
 <template>
-  <div class="applicationDetails">应用详情</div>
+  <div class="applicationDetails" v-html="this.storeData.detail">应用详情</div>
 </template>
 
 <script>
@@ -8,11 +8,15 @@ export default {
   components: {},
   props: {},
   data() {
-    return {};
+    return {
+      storeData: {}
+    };
   },
   computed: {},
   watch: {},
-  created() {},
+  created() {
+    this.storeData = JSON.parse(sessionStorage.getItem("currentData"));
+  },
   mounted() {},
   methods: {}
 };

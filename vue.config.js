@@ -5,22 +5,20 @@ module.exports = {
         /* 自动打开浏览器 */
         open: false,
         host: "localhost", // 局域网和本地访问
-        port: 8000,
+        port: 7002,
         https: false,
         hotOnly: false,
-
         /* 使用代理 */
         proxy: {
-            "/smartedge": {
+            "/VideoPlatform": {
                 /* 目标代理服务器地址 */
-                target: "http://82.156.212.43:5000",
-
+                target: "http://172.29.29.131:7002",
                 /* 允许跨域 */
                 changeOrigin: true,
-                ws: true,
-                pathRewrite: {
-                    "^/smartedge": "/smartedge"
-                }
+                ws: true
+                    // pathRewrite: {
+                    //     "^/VideoPlatform": "/VideoPlatform"
+                    // }
             }
         },
         before: () => {}

@@ -1,20 +1,25 @@
 <template>
   <div class="updateLog">
-    <el-table :data="tableData" style="width: 100%">
-      <el-table-column prop="date" label="日期" width="180"> </el-table-column>
-      <el-table-column prop="name" label="姓名" width="180"> </el-table-column>
-      <el-table-column prop="address" label="地址"> </el-table-column>
+    <el-table :data="tableData" style="width: 100%" v-loading="listLoading">
+      <el-table-column prop="version" label="发布版本" width="200">
+      </el-table-column>
+      <el-table-column prop="createTime" label="发布时间" width="260">
+      </el-table-column>
+      <el-table-column prop="versionNote" label="版本更新说明">
+      </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
+import { searchInfoLog } from "@/api/capabilityStore.js";
 export default {
   name: "updateLog",
   components: {},
   props: {},
   data() {
     return {
+      storeData: {},
       tableData: [
         {
           date: "2016-05-02",
@@ -36,14 +41,31 @@ export default {
           name: "王小虎",
           address: "上海市普陀区金沙江路 1516 弄"
         }
-      ]
+      ],
+      listLoading: false
     };
   },
   computed: {},
   watch: {},
-  created() {},
+  created() {
+    this.storeData = JSON.parse(sessionStorage.getItem("currentData"));
+    this.getList();
+  },
   mounted() {},
-  methods: {}
+  methods: {
+    getList() {
+      this.listLoading = true;
+      searchInfoLog(this.storeData.id)
+        .then(res => {
+          console.log("当前列表数据", res);
+          if (res.code == 200) {
+            this.listLoading = false;
+            this.tableData = res.data;
+          }
+        })
+        .catch(err => console.log(err));
+    }
+  }
 };
 </script>
 

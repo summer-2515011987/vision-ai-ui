@@ -1,5 +1,5 @@
 <template>
-  <div class="instructions">使用说明</div>
+  <div class="instructions" v-html="this.storeData.desc">使用说明</div>
 </template>
 
 <script>
@@ -8,11 +8,15 @@ export default {
   components: {},
   props: {},
   data() {
-    return {};
+    return {
+      storeData: {}
+    };
   },
   computed: {},
   watch: {},
-  created() {},
+  created() {
+    this.storeData = JSON.parse(sessionStorage.getItem("currentData"));
+  },
   mounted() {},
   methods: {}
 };

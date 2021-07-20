@@ -1,26 +1,30 @@
 <template>
   <div class="marketDetail">
     <el-card class="marketDetailContainer">
-      <div slot="header" class="main_contain">
-        <span class="el-icon-caret-right"></span>能力商店详情
+      <div slot="header">
+        <!-- <span class="el-icon-caret-right"></span>能力商店详情 -->
+        <el-page-header
+          @back="$router.back()"
+          content="能力商店详情"
+        ></el-page-header>
       </div>
       <div class="marketDetailTop">
-        <img src="" alt="" />
         <div class="connet">
-          <img src="../../assets/images/home/headerLeftNew.png" alt="" />
+          <!-- <img src="../../assets/images/home/headerLeftNew.png" alt="" /> -->
           <div class="connetTwo">
             <div class="connetThree">
-              <span>BACnet设备连接器-AMD64</span>
-              <span>
+              <span>{{ deviceData.name }}</span>
+              <!-- <span>
                 <i class="el-icon-view"></i>111
                 <i class="el-icon-star-off"></i>222
-              </span>
+              </span> -->
             </div>
             <!-- 版本 -->
             <el-row class="cpuArchi">
               <el-col :span="24"
                 ><div>
-                  <span style="margin-right:16px">版本</span>5.2.3
+                  <span style="margin-right:16px">版本</span
+                  >{{ deviceData.version }}
                 </div></el-col
               >
             </el-row>
@@ -28,12 +32,15 @@
             <el-row :gutter="20" class="cpuArchi">
               <el-col :span="12"
                 ><div>
-                  cpu架构<span style="margin-left:16px">AMD64</span>
+                  cpu架构<span style="margin-left:16px">{{
+                    deviceData.cpu
+                  }}</span>
                 </div></el-col
               >
               <el-col :span="12"
                 ><div>
-                  <span style="margin-right:16px;">类型</span>物联网
+                  <span style="margin-right:16px;">类型</span
+                  >{{ deviceData.imageType }}
                 </div></el-col
               >
             </el-row>
@@ -41,15 +48,15 @@
             <el-row :gutter="20" class="cpuArchi">
               <el-col :span="12"
                 ><div>
-                  行业<span style="margin-left:20px;font-weight:500"
-                    >工业制造</span
-                  >
+                  行业<span style="margin-left:20px;font-weight:500">{{
+                    deviceData.trade
+                  }}</span>
                 </div></el-col
               >
               <el-col :span="12"
                 ><div class="grid-content bg-purple">
                   <span style="margin-right:20px">更新时间</span
-                  ><strong>2020-12-14 16:00:10</strong>
+                  ><strong>{{ deviceData.updateTime }}</strong>
                 </div></el-col
               >
             </el-row>
@@ -57,12 +64,7 @@
             <el-row class="cpuArchi">
               <el-col :span="24"
                 ><div class="grid-content bg-purple-dark">
-                  该应用为楼宇润发太过分了减肥发ijrggdf绝地反击
-                  该应用为楼宇润发太过分了减肥发ijrggdf绝地反击
-                  该应用为楼宇润发太过分了减肥发ijrggdf该应用为
-                  楼宇润发太过分了减肥发ijrggdf绝地反击
-                  该应用为楼宇润发太过分了减肥发ijrggdf绝地反击
-                  该应用为楼宇润发太过分了减肥发ijrggdf
+                  {{ deviceData.brief }}
                 </div></el-col
               >
             </el-row>
@@ -70,7 +72,7 @@
             <el-row class="cpuArchi">
               <el-col :span="24"
                 ><div class="one">
-                  <i class="el-icon-star-off"></i>
+                  <!-- <i class="el-icon-star-off"></i> -->
                   <el-button type="primary">部署应用</el-button>
                 </div></el-col
               >
@@ -118,6 +120,7 @@ export default {
   props: {},
   data() {
     return {
+      deviceData: {},
       currentView: "applicationDetails",
       tabOption: [
         {
@@ -140,7 +143,9 @@ export default {
   },
   computed: {},
   watch: {},
-  created() {},
+  created() {
+    this.deviceData = this.$route.query;
+  },
   mounted() {},
   methods: {
     swtichTab(tab) {
@@ -189,5 +194,8 @@ export default {
   font-size: 30px;
   vertical-align: middle;
   margin-right: 20px;
+}
+.marketDetailTop {
+  margin-left: 32px;
 }
 </style>

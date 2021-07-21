@@ -256,6 +256,10 @@ export default {
 </script>
 
 <style scoped lang="less">
+.edge-container {
+  height: 580px;
+  overflow: auto;
+}
 .main_contain span {
   transform: rotate(45deg);
   color: #ce4f15;
@@ -269,7 +273,7 @@ export default {
 }
 
 .el-icon-help {
-  font-size: 74px;
+  font-size: 70px;
   color: #409eff;
 }
 

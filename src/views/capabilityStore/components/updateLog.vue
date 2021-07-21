@@ -57,7 +57,6 @@ export default {
       this.listLoading = true;
       searchInfoLog(this.storeData.id)
         .then(res => {
-          console.log("当前列表数据", res);
           if (res.code == 200) {
             this.listLoading = false;
             this.tableData = res.data;

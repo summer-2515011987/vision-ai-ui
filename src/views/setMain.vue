@@ -4,7 +4,7 @@
       <setHeaderTop></setHeaderTop>
     </el-header>
     <el-container>
-      <el-aside class="my-aside" width="270px">
+      <el-aside class="my-aside" style="width:220px;">
         <sidebar></sidebar>
       </el-aside>
       <el-main class="main_div">
@@ -37,12 +37,12 @@ export default {
 
 <style scoped lang="less">
 .main_div {
-  padding: 30px;
+  // padding: 10px;
   background: #e9effc75;
-  overflow: hidden;
+  // overflow: hidden;
 }
 .el-header[data-v-beb062de] {
-  height: 78px !important;
+  height: 100px !important;
   padding: 0;
 }
 .home-container {
@@ -52,8 +52,7 @@ export default {
   width: 100%;
   height: 100%;
   .my-aside {
-    width: 230px;
-    background: #002033;
+    background-color: rgb(0, 24, 45);
   }
 }
 </style>

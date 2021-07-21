@@ -73,7 +73,9 @@
               <el-col :span="24"
                 ><div class="one">
                   <!-- <i class="el-icon-star-off"></i> -->
-                  <el-button type="primary">部署应用</el-button>
+                  <el-button type="primary" @click="deployApplication"
+                    >部署应用</el-button
+                  >
                 </div></el-col
               >
             </el-row>
@@ -150,6 +152,13 @@ export default {
   methods: {
     swtichTab(tab) {
       this.currentView = tab.name;
+    },
+    // 部署应用
+    deployApplication() {
+      this.$router.push({
+        path: "/home/createApp",
+        query: { fromDevlop: "" }
+      });
     }
   }
 };

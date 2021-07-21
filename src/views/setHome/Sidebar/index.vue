@@ -3,9 +3,9 @@
     style="border-right: none"
     :default-active="$route.path"
     router
-    background-color="#002033"
-    text-color="#fff"
-    active-text-color="#ffd04b"
+    background-color="#00182D"
+    text-color="#566E96"
+    active-text-color="#47C2FD"
     :collapse-transition="false"
   >
     <!-- <el-menu-item index="/home/Overview">
@@ -75,4 +75,8 @@ export default {
 };
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.el-menu-item {
+  letter-spacing: 1.2px;
+}
+</style>

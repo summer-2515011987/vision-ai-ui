@@ -2,7 +2,7 @@
   <div class="marketApplication">
     <el-card class="marketContainer">
       <div slot="header" class="main_contain">
-        <span class="el-icon-caret-right"></span>能力商店221
+        <span class="el-icon-caret-right"></span>能力商店
       </div>
       <!-- 表单项 -->
       <div v-loading="listLoading">

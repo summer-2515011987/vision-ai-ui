@@ -1,26 +1,30 @@
 <template>
   <div class="login-container">
-    <div class="login-box">
+    <!-- <div class="login-box"> -->
+    <el-card class="login-box">
       <el-form
         :model="ruleForm"
         status-icon
         :rules="loginRules"
         ref="ruleForm"
-        label-width="100px"
         class="demo-ruleForm"
       >
         <h3>视觉AI系统</h3>
-        <el-form-item label="账号" prop="pass">
+
+        <el-form-item label="" prop="username">
           <el-input
             v-model="ruleForm.username"
             autocomplete="off"
-            placeholder="请输入账号"
-          ></el-input>
+            placeholder="请输入用户名"
+            prefix-icon="el-icon-user-solid"
+          >
+          </el-input>
         </el-form-item>
-        <el-form-item label="密码" prop="checkPass">
+        <el-form-item label="" prop="password">
           <el-input
             type="password"
             v-model="ruleForm.password"
+            prefix-icon="el-icon-lock"
             autocomplete="off"
             placeholder="请输入密码"
           ></el-input>
@@ -30,7 +34,8 @@
           <el-button type="primary" @click="login">登录系统</el-button>
         </el-form-item>
       </el-form>
-    </div>
+    </el-card>
+    <!-- </div> -->
   </div>
 </template>
 
@@ -42,17 +47,7 @@ export default {
   components: {},
   props: {},
   data() {
-    // 校验手机号
-    let checkusername = (rule, value, callback) => {
-      if (value.length === 0) {
-        callback(new Error("用户名不能为空"));
-      } else {
-        callback();
-      }
-    };
     return {
-      redirect: undefined,
-      otherQuery: {},
       loading: false,
       ruleForm: {
         username: "admin",
@@ -66,19 +61,15 @@ export default {
       loginRules: {
         username: [
           {
-            validate: checkusername,
-            trigger: "blur"
-          },
-          {
             required: true,
-            message: "请输入手机号",
+            message: "请输入用户名",
             trigger: "blur"
           }
         ],
         password: [
           {
             required: true,
-            message: "请输入验证码",
+            message: "请输入密码",
             trigger: "blur"
           },
           {
@@ -91,18 +82,7 @@ export default {
     };
   },
   computed: {},
-  watch: {
-    $route: {
-      handler: function(route) {
-        const query = route.query;
-        if (query) {
-          this.redirect = query.redirect;
-          this.otherQuery = this.getOtherQuery(query);
-        }
-      },
-      immediate: true
-    }
-  },
+  watch: {},
   created() {},
   mounted() {},
   methods: {
@@ -110,12 +90,10 @@ export default {
       this.$refs.ruleForm.validate(valid => {
         if (!valid) return false;
         this.loading = false;
-        // this.$router.push("/home");
         this.$store
           .dispatch("Login", this.ruleForm)
           .then(() => {
             this.loading = true;
-            // this.$router.push("/home");
             this.$router.push("/home");
             this.loading = false;
           })
@@ -124,14 +102,6 @@ export default {
             this.ruleForm.password = "";
           });
       });
-    },
-    getOtherQuery(query) {
-      return Object.keys(query).reduce((acc, cur) => {
-        if (cur !== "redirect") {
-          acc[cur] = query[cur];
-        }
-        return acc;
-      }, {});
     }
   }
 };
@@ -148,16 +118,16 @@ export default {
     center/cover;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   .login-box {
     width: 380px;
     height: 340px;
     border: 6px solid #fff;
-    border-radius: 5%;
-    margin-right: 100px;
-    .el-form-item {
-      width: 90%;
-    }
+    // border-radius: 5%;
+    // margin-right: 100px;
+    // .el-form-item {
+    //   width: 90%;
+    // }
     h3 {
       text-align: center;
       font-size: 30px;
@@ -177,5 +147,9 @@ export default {
       width: 100%;
     }
   }
+}
+.el-icon-user-solid {
+  width: 20px;
+  height: 20px;
 }
 </style>
